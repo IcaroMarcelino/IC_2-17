@@ -88,8 +88,8 @@ def initial_population():
 		scores.append(score)
 	
 	# just in case you wanted to reference later
-	training_data_save = np.array(training_data)
-	np.save('saved.npy',training_data_save)
+	# training_data_save = np.array(training_data)
+	# np.save('saved.npy',training_data_save)
 	
 	# some stats here, to further illustrate the neural network magic!
 	print('Average accepted score:',mean(accepted_scores))
@@ -316,7 +316,7 @@ TAM_MAX = 20
 filename = "GP_20"
 verbose = False
 
-for i in range(7,14):
+for i in range(10,14):
 	training_data = initial_population()
 	model = train_model(training_data, NPOP, NGEN, MUTPB, CXPB, TAM_MAX, i, verbose, filename)
 
