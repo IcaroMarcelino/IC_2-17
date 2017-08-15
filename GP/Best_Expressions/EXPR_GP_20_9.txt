@@ -1,0 +1,1 @@
+move_to_right(less(neg(1.0), sub(add(theta, theta_), add(sub(-10.0, sub(add(theta, neg(sub(-10.0, sub(add(theta, add(theta, -10.0)), sub(-1.0, -10.0))))), add(sub(neg(1.0), theta), sub(-1.0, add(theta, neg(1.0)))))), 1.0))))

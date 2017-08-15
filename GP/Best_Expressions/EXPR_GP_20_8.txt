@@ -1,0 +1,1 @@
+less(sub(mul(-10.0, theta), sub(x, 2.0)), add(-2.0, mul(sub(theta_, mul(1.0, sub(sub(x_, p_div(x, 1.0)), p_div(x, 1.0)))), sub(theta, p_div(1.0, 1.0)))))

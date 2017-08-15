@@ -1,0 +1,1 @@
+greater(neg(neg(add(mul(mul(-1.0, add(sub(mul(theta, add(sub(theta, 1.0), -1.0)), 1.0), add(1.0, -1.0))), 2.0), sub(theta_, sub(sub(theta, neg(neg(add(-1.0, -1.0)))), 1.0))))), sub(2.0, 1.0))

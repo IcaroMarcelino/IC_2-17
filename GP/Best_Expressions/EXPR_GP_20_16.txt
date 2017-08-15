@@ -1,0 +1,1 @@
+move_to_right(greater(sub(-2.0, theta), neg(mul(add(p_div(theta_, -10.0), 1.0), 2.0))))

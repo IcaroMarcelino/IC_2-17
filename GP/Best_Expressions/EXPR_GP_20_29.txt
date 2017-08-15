@@ -1,0 +1,1 @@
+less(neg(-10.0), add(neg(mul(-1.0, 10.0)), p_div(neg(-2.0), add(mul(theta, -1.0), p_div(neg(p_div(neg(add(-2.0, add(theta_, theta))), add(add(theta, add(mul(theta, add(mul(theta, -1.0), add(-2.0, add(theta_, theta)))), p_div(neg(add(-2.0, add(theta_, theta))), add(add(theta, mul(theta, 10.0)), add(theta_, theta_))))), add(theta_, theta_)))), -1.0)))))
