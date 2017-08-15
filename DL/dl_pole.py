@@ -2,6 +2,7 @@ import gym
 import random
 import numpy as np
 import tflearn
+import tensorflow as tf
 from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 from statistics import median, mean
@@ -100,13 +101,13 @@ def initial_population():
         scores.append(score)
     
     # just in case you wanted to reference later
-    training_data_save = np.array(training_data)
-    np.save('saved.npy',training_data_save)
+    # training_data_save = np.array(training_data)
+    # np.save('saved.npy',training_data_save)
     
     # some stats here, to further illustrate the neural network magic!
-    print('Average accepted score:',mean(accepted_scores))
-    print('Median score for accepted scores:',median(accepted_scores))
-    print(Counter(accepted_scores))
+    # print('Average accepted score:',mean(accepted_scores))
+    # print('Median score for accepted scores:',median(accepted_scores))
+    # print(Counter(accepted_scores))
     
     return training_data
 
@@ -140,7 +141,7 @@ def neural_network_model(input_size):
     return model
 
 def save_scores(best_scores, times, path, filename, nexec):
-    output = open(path + filename + "_" + str(nexec) + ".txt", 'w')
+    output = open(path + filename + "_" + str(nexec) + ".csv", 'w')
     
     wr = csv.writer(output)
     for i in list(range(len(best_scores))):
@@ -170,20 +171,19 @@ def train_model(training_data, model, nepoch, filename, verbose, nexec):
         prev_obs = []
         env.reset()
         for _ in range(goal_steps):
-            # env.render()
+            if SHOW:
+                env.render()
 
             if len(prev_obs)==0:
                 action = random.randrange(0,2)
             else:
                 action = np.argmax(model.predict(prev_obs.reshape(-1,len(prev_obs),1))[0])
-
-            # choices.append(action)
-                    
+               
             new_observation, reward, done, info = env.step(action)
             prev_obs = new_observation
             game_memory.append([new_observation, action])
             score+=reward
-            # if done: break
+            if done: break
             
         end = time.time()
 
@@ -194,43 +194,58 @@ def train_model(training_data, model, nepoch, filename, verbose, nexec):
     return model
 
 
-# for i in range(0,50):
-i=0
-nepoch = 5
-LR = 1e-3
-env = gym.make("CartPole-v0")
-env.reset()
-goal_steps = 500
-score_requirement = 50
-initial_games = 10000
-
-training_data = initial_population()
-model = train_model(training_data = training_data, model = False, nepoch = nepoch, filename = "DL_8", verbose = True, nexec = i)
-
-scores = []
-choices = []
-for each_game in range(10):
-    score = 0
-    game_memory = []
-    prev_obs = []
+for i in range(0,50):
+    tf.reset_default_graph()
+    nepoch = 25
+    LR = 1e-3
+    env = gym.make("CartPole-v0")
     env.reset()
-    for _ in range(goal_steps):
-        env.render()
+    goal_steps = 500
+    score_requirement = 50
+    initial_games = 10000
+    SHOW = False
+    verbose = False
+    filename = "DL_8"
+    model = False
 
-        if len(prev_obs)==0:
-            action = random.randrange(0,2)
-        else:
-            action = np.argmax(model.predict(prev_obs.reshape(-1,len(prev_obs),1))[0])
+    training_data = initial_population()
+    model = train_model(training_data = training_data, model = model, nepoch = nepoch, filename = filename, verbose = verbose, nexec = i)
 
-        choices.append(action)
-                
-        new_observation, reward, done, info = env.step(action)
-        prev_obs = new_observation
-        game_memory.append([new_observation, action])
-        score+=reward
-        if done: break
+    scores = []
+    choices = []
+    saving = []
+    j = 0
+    for each_game in range(10):
+        j+=1
+        score = 0
+        game_memory = []
+        prev_obs = []
+        env.reset()
+        for _ in range(1000):
+            if SHOW:
+                env.render()
 
-    scores.append(score)
+            if len(prev_obs)==0:
+                action = random.randrange(0,2)
+            else:
+                action = np.argmax(model.predict(prev_obs.reshape(-1,len(prev_obs),1))[0])
+
+            choices.append(action)
+                    
+            new_observation, reward, done, info = env.step(action)
+            prev_obs = new_observation
+            game_memory.append([new_observation, action])
+            saving.append(new_observation)
+            score+=reward
+            if done: break
+
+        scores.append(score)
+        output = open("DL_GAMES/Game_" + filename + "_" + str(i) + "_"  + str(j) + ".csv", 'w')
+        
+        wr = csv.writer(output)
+        for k in list(range(len(saving))):
+            wr.writerow([k, saving[k][0], saving[k][1], saving[k][2], saving[k][3]])
+
 
 print('Average Score:',sum(scores)/len(scores))
 print('choice 1:{}  choice 0:{}'.format(choices.count(1)/len(choices),choices.count(0)/len(choices)))

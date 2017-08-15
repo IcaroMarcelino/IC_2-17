@@ -3,6 +3,8 @@ import numpy as np
 import random
 import math
 from time import sleep
+import time
+import csv
 
 
 ## Initialize the "Cart-Pole" environment
@@ -29,13 +31,22 @@ MIN_EXPLORE_RATE = 0.01
 MIN_LEARNING_RATE = 0.1
 
 ## Defining the simulation related constants
-NUM_EPISODES = 1000
-MAX_T = 250
-STREAK_TO_END = 120
-SOLVED_T = 199
-DEBUG_MODE = True
+NUM_EPISODES = 400
+MAX_T = 1000
+STREAK_TO_END = 50
+SOLVED_T = 499
+DEBUG_MODE = False
+filename = 'QL_'
+SHOW = False
 
-def simulate():
+def save_scores(best_scores, times, path, filename, nexec):
+    output = open(path + filename + "_" + str(nexec) + ".csv", 'w')
+    
+    wr = csv.writer(output)
+    for i in list(range(len(best_scores))):
+        wr.writerow([i, best_scores[i], times[i]])
+
+def simulate(nexec):
 
     ## Instantiating the learning related parameters
     learning_rate = get_learning_rate(0)
@@ -44,22 +55,35 @@ def simulate():
 
     num_streaks = 0
 
+    scores = []
+    times = []
     for episode in range(NUM_EPISODES):
+        print("\nEpisode = %d" % episode)
+
+        saving = []
 
         # Reset the environment
         obv = env.reset()
 
         # the initial state
         state_0 = state_to_bucket(obv)
+        t = 0
+        init = time.time()
 
+        scr = 0
         for t in range(MAX_T):
-            env.render()
+            if SHOW:
+                env.render()
 
             # Select an action
             action = select_action(state_0, explore_rate)
 
             # Execute the action
             obv, reward, done, _ = env.step(action)
+            scr += reward
+
+            if episode >= (NUM_EPISODES - 10):
+                saving.append(obv)
 
             # Observe the result
             state = state_to_bucket(obv)
@@ -73,7 +97,6 @@ def simulate():
 
             # Print data
             if (DEBUG_MODE):
-                print("\nEpisode = %d" % episode)
                 print("t = %d" % t)
                 print("Action: %d" % action)
                 print("State: %s" % str(state))
@@ -86,6 +109,8 @@ def simulate():
 
                 print("")
 
+
+
             if done:
                print("Episode %d finished after %f time steps" % (episode, t))
                if (t >= SOLVED_T):
@@ -95,6 +120,21 @@ def simulate():
                break
 
             #sleep(0.25)
+        
+        if episode >= (NUM_EPISODES - 10):
+
+            output = open("QL_GAMES/Game_" + filename + "_" + str(nexec) + "_"  + str(NUM_EPISODES - episode) + ".csv", 'w')
+        
+
+            wr = csv.writer(output)
+            for k in list(range(len(saving))):
+                wr.writerow([k, saving[k][0], saving[k][1], saving[k][2], saving[k][3]])
+
+        
+        end = time.time()
+        scores.append(scr)
+        times.append(end-init)
+
 
         # It's considered done when it's solved over 120 times consecutively
         if num_streaks > STREAK_TO_END:
@@ -104,6 +144,7 @@ def simulate():
         explore_rate = get_explore_rate(episode)
         learning_rate = get_learning_rate(episode)
 
+    save_scores(scores, times, "Scores/SCR_", filename, nexec)
 
 def select_action(state, explore_rate):
     # Select a random action
@@ -113,7 +154,6 @@ def select_action(state, explore_rate):
     else:
         action = np.argmax(q_table[state])
     return action
-
 
 def get_explore_rate(t):
     return max(MIN_EXPLORE_RATE, min(1, 1.0 - math.log10((t+1)/25)))
@@ -138,4 +178,5 @@ def state_to_bucket(state):
     return tuple(bucket_indice)
 
 if __name__ == "__main__":
-    simulate()
+    for nexec in range(0,50):
+        simulate(nexec = nexec)
