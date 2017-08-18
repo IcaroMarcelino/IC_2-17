@@ -1,1 +1,36 @@
-[2017-08-15 19:42:48,720] Making new env: CartPole-v0
+[2017-08-16 22:22:20,354] Making new env: CartPole-v0
+gp_pole4.py:154: RuntimeWarning: divide by zero encountered in double_scalars
+  return left / right
+gp_pole4.py:154: RuntimeWarning: invalid value encountered in double_scalars
+  return left / right
+<string>:1: RuntimeWarning: invalid value encountered in double_scalars
+/root/anaconda3/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMax' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+/root/anaconda3/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+<string>:1: RuntimeWarning: invalid value encountered in double_scalars
+Average accepted score: 61.46223564954683
+Median score for accepted scores: 58.0
+Counter({50.0: 28, 51.0: 27, 52.0: 24, 53.0: 21, 56.0: 21, 54.0: 15, 55.0: 13, 57.0: 13, 63.0: 12, 60.0: 11, 64.0: 11, 65.0: 10, 59.0: 10, 62.0: 10, 58.0: 9, 61.0: 8, 67.0: 7, 66.0: 6, 71.0: 6, 70.0: 5, 73.0: 5, 68.0: 5, 81.0: 5, 69.0: 5, 72.0: 5, 86.0: 4, 74.0: 4, 76.0: 4, 79.0: 4, 87.0: 3, 80.0: 3, 78.0: 2, 77.0: 2, 113.0: 1, 115.0: 1, 98.0: 1, 97.0: 1, 90.0: 1, 84.0: 1, 89.0: 1, 105.0: 1, 75.0: 1, 96.0: 1, 95.0: 1, 83.0: 1, 107.0: 1})
+>> Cart Pole Balancing - GP: 
+>> Fim da execucao (19054.170956611633 segundos)
+
+
+>>>>>
+less(mul(mul(mul(add(-2.0, theta_), -1.0), add(-1.0, theta)), sub(add(neg(mul(-2.0, -1.0)), theta), p_div(-10.0, 10.0))), -2.0)
+>>>>>
+
+Average accepted score: 62.09283819628647
+Median score for accepted scores: 58.0
+Counter({51.0: 30, 52.0: 29, 50.0: 27, 53.0: 27, 57.0: 25, 54.0: 24, 61.0: 18, 60.0: 14, 58.0: 13, 55.0: 13, 68.0: 12, 59.0: 12, 62.0: 10, 69.0: 10, 63.0: 9, 56.0: 9, 64.0: 8, 73.0: 8, 66.0: 7, 72.0: 7, 65.0: 6, 84.0: 5, 78.0: 5, 80.0: 5, 70.0: 4, 110.0: 3, 91.0: 3, 85.0: 3, 71.0: 3, 74.0: 2, 104.0: 2, 79.0: 2, 76.0: 2, 82.0: 2, 67.0: 2, 94.0: 2, 96.0: 1, 89.0: 1, 86.0: 1, 112.0: 1, 103.0: 1, 108.0: 1, 87.0: 1, 98.0: 1, 150.0: 1, 97.0: 1, 99.0: 1, 75.0: 1, 111.0: 1, 81.0: 1})
+>> Cart Pole Balancing - GP: 
+>> Fim da execucao (22546.963530540466 segundos)
+
+
+>>>>>
+move_to_right(less(mul(add(sub(theta_, p_div(mul(add(-1.0, -1.0), -1.0), p_div(-1.0, theta))), -1.0), add(theta, add(theta, -1.0))), p_div(theta, theta)))
+>>>>>
+
+Average Score: 200.0
+choice 1:0.4985  choice 0:0.5015
+50

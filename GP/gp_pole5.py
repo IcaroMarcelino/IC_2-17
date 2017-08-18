@@ -316,7 +316,7 @@ TAM_MAX = 20
 filename = "GP_20"
 verbose = False
 
-for i in range(38,42):
+for i in range(39,42):
 	training_data = initial_population()
 	model = train_model(training_data, NPOP, NGEN, MUTPB, CXPB, TAM_MAX, i, verbose, filename)
 
