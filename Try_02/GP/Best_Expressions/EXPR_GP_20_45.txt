@@ -1,0 +1,1 @@
+move_to_right(less(add(add(add(add(theta, mul(sub(2.0, theta), -10.0)), theta_), theta_), theta_), mul(-2.0, 10.0)))

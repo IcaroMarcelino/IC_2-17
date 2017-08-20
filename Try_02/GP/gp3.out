@@ -1,0 +1,7 @@
+[2017-08-19 22:51:36,546] Making new env: CartPole-v0
+gp_pole3.py:154: RuntimeWarning: divide by zero encountered in double_scalars
+  return left / right
+gp_pole3.py:154: RuntimeWarning: invalid value encountered in double_scalars
+  return left / right
+<string>:1: RuntimeWarning: invalid value encountered in double_scalars
+[2017-08-20 07:52:01,257] You are calling 'step()' even though this environment has already returned done = True. You should always call 'reset()' once you receive 'done = True' -- any further steps are undefined behavior.

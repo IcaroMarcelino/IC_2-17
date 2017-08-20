@@ -1,0 +1,1 @@
+greater(add(-2.0, p_div(theta_, neg(2.0))), sub(sub(mul(theta, -10.0), -2.0), add(theta_, theta_)))
