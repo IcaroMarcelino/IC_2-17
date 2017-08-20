@@ -1,0 +1,1 @@
+less(add(add(add(neg(add(theta, -1.0)), neg(x)), add(mul(neg(add(add(add(add(neg(add(theta, theta)), add(neg(x), neg(x))), neg(x)), add(mul(-2.0, theta), neg(-1.0))), mul(-2.0, theta))), theta), neg(theta_))), mul(-2.0, theta)), -1.0)
