@@ -196,8 +196,8 @@ def train_model(training_data, model, nepoch, filename, verbose, nexec):
 
 for i in range(0,50):
     tf.reset_default_graph()
-    nepoch = 25
-    LR = 1e-3
+    nepoch = 100
+    LR = 1e-6
     env = gym.make("CartPole-v0")
     env.reset()
     goal_steps = 500

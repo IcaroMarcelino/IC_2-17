@@ -218,14 +218,14 @@ def train_model(training_data, npop, ngen, mutpb, cxpb, tam_max, nexec, verbose,
 	toolbox.register("select", tools.selTournament, tournsize=3)
 	toolbox.register("mate", gp.cxOnePoint)
 	# toolbox.register("mate", gp.cxOnePointLeafBiased, termpb = .05)
-	# toolbox.register("expr_mut", gp.genFull, min_=3, max_=6)
-	# toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
+	toolbox.register("expr_mut", gp.genFull, min_=3, max_=6)
+	toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
 
-	toolbox.register("mutate", gp.mutShrink)
+	# toolbox.register("mutate", gp.mutShrink)
 	# toolbox.register("mutate", gp.mutInsert, pset=pset)
 
-	toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value = tam_max))
-	toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value = tam_max))
+	toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value = 20))
+	toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value = 6))
 
 	start = time.time()
 	random.seed(318)

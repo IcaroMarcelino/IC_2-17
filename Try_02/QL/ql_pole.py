@@ -27,11 +27,11 @@ ACTION_INDEX = len(NUM_BUCKETS)
 q_table = np.zeros(NUM_BUCKETS + (NUM_ACTIONS,))
 
 ## Learning related constants
-MIN_EXPLORE_RATE = 0.01
-MIN_LEARNING_RATE = 0.1
+MIN_EXPLORE_RATE = 0.0001
+MIN_LEARNING_RATE = 0.001
 
 ## Defining the simulation related constants
-NUM_EPISODES = 400
+NUM_EPISODES = 1000
 MAX_T = 1000
 STREAK_TO_END = 50
 SOLVED_T = 499
