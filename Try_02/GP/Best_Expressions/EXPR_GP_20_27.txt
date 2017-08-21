@@ -1,0 +1,1 @@
+move_to_left(greater(add(theta, p_div(neg(10.0), mul(-1.0, sub(neg(theta), 2.0)))), sub(mul(add(add(x, add(add(x, 1.0), p_div(-1.0, 10.0))), p_div(-1.0, add(-2.0, -10.0))), theta_), add(2.0, sub(p_div(add(add(-2.0, -10.0), sub(10.0, 10.0)), 2.0), sub(mul(add(x, x), neg(p_div(x, 2.0))), -1.0))))))

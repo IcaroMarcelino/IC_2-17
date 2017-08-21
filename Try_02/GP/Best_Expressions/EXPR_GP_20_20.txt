@@ -1,0 +1,1 @@
+move_to_left(greater(neg(sub(-10.0, x_)), p_div(sub(theta_, -10.0), add(neg(1.0), theta))))

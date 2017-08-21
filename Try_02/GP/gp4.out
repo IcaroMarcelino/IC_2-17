@@ -1,1 +1,36 @@
 [2017-08-19 22:52:27,730] Making new env: CartPole-v0
+gp_pole4.py:154: RuntimeWarning: divide by zero encountered in double_scalars
+  return left / right
+gp_pole4.py:154: RuntimeWarning: invalid value encountered in double_scalars
+  return left / right
+<string>:1: RuntimeWarning: invalid value encountered in double_scalars
+/root/anaconda3/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMax' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+/root/anaconda3/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+<string>:1: RuntimeWarning: invalid value encountered in double_scalars
+Average accepted score: 60.51912568306011
+Median score for accepted scores: 58.0
+Counter({50.0: 33, 52.0: 26, 58.0: 26, 51.0: 24, 56.0: 24, 53.0: 24, 54.0: 18, 55.0: 16, 57.0: 16, 60.0: 13, 63.0: 13, 59.0: 12, 61.0: 10, 64.0: 9, 62.0: 9, 68.0: 9, 78.0: 7, 65.0: 7, 67.0: 7, 72.0: 6, 70.0: 5, 66.0: 5, 73.0: 5, 71.0: 5, 75.0: 4, 69.0: 4, 83.0: 3, 77.0: 3, 74.0: 3, 79.0: 2, 88.0: 2, 84.0: 2, 101.0: 1, 76.0: 1, 82.0: 1, 118.0: 1, 89.0: 1, 94.0: 1, 110.0: 1, 96.0: 1, 98.0: 1, 87.0: 1, 81.0: 1, 86.0: 1, 80.0: 1, 93.0: 1})
+>> Cart Pole Balancing - GP: 
+>> Fim da execucao (37827.28142571449 segundos)
+
+
+>>>>>
+move_to_right(greater(neg(neg(1.0)), sub(sub(neg(sub(sub(sub(add(theta, theta_), mul(1.0, x)), sub(10.0, 10.0)), p_div(mul(p_div(add(add(sub(neg(2.0), neg(-2.0)), mul(sub(-2.0, x), neg(10.0))), neg(sub(neg(10.0), sub(mul(sub(-2.0, x), neg(mul(sub(-2.0, x), theta))), 10.0)))), mul(2.0, neg(sub(neg(10.0), sub(mul(sub(-2.0, x), neg(x)), 10.0))))), mul(theta, x)), p_div(mul(2.0, x), neg(x))))), theta), sub(neg(10.0), sub(1.0, 10.0)))))
+>>>>>
+
+Average accepted score: 61.53787878787879
+Median score for accepted scores: 57.0
+Counter({50.0: 35, 51.0: 27, 57.0: 27, 53.0: 27, 52.0: 24, 56.0: 24, 55.0: 21, 54.0: 20, 61.0: 19, 58.0: 14, 64.0: 14, 68.0: 12, 66.0: 11, 60.0: 9, 62.0: 8, 67.0: 8, 76.0: 8, 72.0: 7, 80.0: 7, 59.0: 7, 70.0: 5, 65.0: 5, 73.0: 5, 69.0: 5, 92.0: 4, 74.0: 4, 75.0: 3, 71.0: 3, 63.0: 3, 79.0: 3, 77.0: 3, 81.0: 2, 89.0: 2, 99.0: 2, 90.0: 2, 88.0: 2, 115.0: 2, 91.0: 2, 86.0: 2, 100.0: 1, 94.0: 1, 96.0: 1, 98.0: 1, 97.0: 1, 103.0: 1, 82.0: 1, 87.0: 1})
+>> Cart Pole Balancing - GP: 
+>> Fim da execucao (43473.704936504364 segundos)
+
+
+>>>>>
+greater(mul(mul(sub(p_div(-10.0, sub(sub(10.0, mul(sub(add(neg(neg(1.0)), mul(sub(mul(-1.0, theta), theta), theta)), theta_), -10.0)), mul(theta, -2.0))), add(2.0, 1.0)), add(mul(theta, theta_), add(-1.0, sub(mul(-1.0, theta), theta)))), mul(sub(sub(sub(10.0, mul(neg(-1.0), neg(-2.0))), 1.0), sub(sub(10.0, mul(sub(add(neg(neg(1.0)), sub(mul(-1.0, theta), theta)), p_div(10.0, neg(-2.0))), -10.0)), mul(add(mul(-2.0, theta_), add(10.0, x_)), -2.0))), add(add(1.0, x), add(theta, theta)))), sub(mul(neg(sub(mul(add(neg(sub(mul(add(mul(-2.0, theta_), add(10.0, x_)), -2.0), 1.0)), add(10.0, x_)), -2.0), 1.0)), -1.0), p_div(neg(mul(mul(neg(-1.0), neg(-2.0)), 2.0)), neg(sub(x, 1.0)))))
+>>>>>
+
+Average Score: 200.0
+choice 1:0.4995  choice 0:0.5005
+50

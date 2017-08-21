@@ -1,0 +1,1 @@
+greater(neg(add(mul(theta, neg(neg(10.0))), sub(add(x_, sub(theta_, -10.0)), mul(x_, neg(-2.0))))), 10.0)

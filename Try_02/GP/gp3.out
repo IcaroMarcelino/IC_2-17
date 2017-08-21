@@ -5,3 +5,33 @@ gp_pole3.py:154: RuntimeWarning: invalid value encountered in double_scalars
   return left / right
 <string>:1: RuntimeWarning: invalid value encountered in double_scalars
 [2017-08-20 07:52:01,257] You are calling 'step()' even though this environment has already returned done = True. You should always call 'reset()' once you receive 'done = True' -- any further steps are undefined behavior.
+/usr/local/lib/python3.5/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMax' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+/usr/local/lib/python3.5/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+<string>:1: RuntimeWarning: invalid value encountered in double_scalars
+Average accepted score: 59.92797783933518
+Median score for accepted scores: 56.0
+Counter({50.0: 39, 51.0: 31, 52.0: 26, 53.0: 25, 54.0: 24, 55.0: 20, 56.0: 18, 58.0: 18, 61.0: 16, 57.0: 14, 59.0: 12, 60.0: 11, 63.0: 10, 64.0: 7, 65.0: 7, 67.0: 7, 70.0: 7, 72.0: 7, 62.0: 6, 75.0: 6, 69.0: 5, 80.0: 5, 66.0: 4, 68.0: 3, 71.0: 3, 73.0: 3, 77.0: 3, 86.0: 3, 74.0: 2, 78.0: 2, 82.0: 2, 97.0: 2, 76.0: 1, 79.0: 1, 84.0: 1, 87.0: 1, 88.0: 1, 89.0: 1, 90.0: 1, 91.0: 1, 93.0: 1, 104.0: 1, 105.0: 1, 117.0: 1, 119.0: 1})
+>> Cart Pole Balancing - GP: 
+>> Fim da execucao (32420.441244602203 segundos)
+
+
+>>>>>
+move_to_left(less(p_div(sub(p_div(theta, 1.0), p_div(1.0, sub(-1.0, x))), mul(sub(sub(x, -1.0), x), p_div(10.0, 10.0))), p_div(p_div(mul(sub(p_div(sub(add(theta_, x), 2.0), neg(2.0)), theta), sub(theta, -10.0)), sub(theta_, p_div(-10.0, 2.0))), add(p_div(theta, 1.0), neg(-2.0)))))
+>>>>>
+
+Average accepted score: 62.3125
+Median score for accepted scores: 58.0
+Counter({52.0: 29, 51.0: 26, 50.0: 25, 53.0: 24, 55.0: 23, 59.0: 20, 56.0: 17, 57.0: 16, 61.0: 16, 58.0: 13, 54.0: 11, 65.0: 8, 68.0: 8, 73.0: 8, 62.0: 7, 60.0: 6, 63.0: 6, 67.0: 6, 70.0: 6, 72.0: 6, 64.0: 5, 71.0: 5, 75.0: 5, 78.0: 5, 81.0: 5, 69.0: 4, 74.0: 4, 66.0: 3, 79.0: 3, 80.0: 3, 83.0: 3, 76.0: 2, 86.0: 2, 90.0: 2, 91.0: 2, 148.0: 1, 77.0: 1, 82.0: 1, 84.0: 1, 87.0: 1, 88.0: 1, 92.0: 1, 95.0: 1, 96.0: 1, 97.0: 1, 105.0: 1, 106.0: 1, 107.0: 1, 108.0: 1, 109.0: 1, 115.0: 1, 122.0: 1, 126.0: 1})
+>> Cart Pole Balancing - GP: 
+>> Fim da execucao (32687.21878194809 segundos)
+
+
+>>>>>
+move_to_left(greater(add(theta, p_div(neg(10.0), mul(-1.0, sub(neg(theta), 2.0)))), sub(mul(add(add(x, add(add(x, 1.0), p_div(-1.0, 10.0))), p_div(-1.0, add(-2.0, -10.0))), theta_), add(2.0, sub(p_div(add(add(-2.0, -10.0), sub(10.0, 10.0)), 2.0), sub(mul(add(x, x), neg(p_div(x, 2.0))), -1.0))))))
+>>>>>
+
+Average Score: 200.0
+choice 1:0.503  choice 0:0.497
+50
