@@ -98,7 +98,7 @@ par(mfrow = c(2,2))
 
 # DL Balancing
 plot(0,0,type = "l", ylim = c(-.2,.2),xlim = c(1,200), main = "Model Angular Oscillation Range\nDeep Learning", xlab = "Steps", ylab = "theta")
-d<-balancing_plot("DL/DL_GAMES/Game_DL_8_",0:49,200,".csv",4)
+d<-balancing_plot("DL/DL_GAMES/Game_DL_8_",temp,200,".csv",4)
 polygon(c(1:200,rev(1:200)), c(d$desvpos, rev(d$desvneg)), col = "grey")
 lines(1:200, d$custos, ylim = c(0,300), xlim = c(1,300), type = "l", col = "red", lwd = 3)
 box()
