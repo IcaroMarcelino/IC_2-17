@@ -1,0 +1,1 @@
+move_to_right(greater(-1.0, sub(sub(p_div(theta, sub(p_div(theta, -1.0), sub(sub(x_, sub(sub(sub(p_div(theta, -1.0), sub(theta_, 2.0)), p_div(theta_, 2.0)), sub(theta, -1.0))), 2.0))), sub(theta_, 2.0)), sub(sub(sub(p_div(theta, -1.0), sub(theta_, 2.0)), sub(theta_, 2.0)), sub(theta, -1.0)))))
