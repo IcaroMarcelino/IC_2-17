@@ -1,11 +1,8 @@
 ## Comparison Study Between Deep Learning and Genetic Programming Application in Cart Pole Balancing Problem
 
-Model-based:
+### How to run
+#### Deep Learning (DL) model
 
-Deep Learning
+#### Genetic Programming (GP) model
 
-Genetic Programming
-
-Model-free:
-
-Q-Learning 
+#### Q-Learning (QL)
