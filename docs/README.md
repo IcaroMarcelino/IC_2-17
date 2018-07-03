@@ -5,4 +5,4 @@
 
 #### Genetic Programming (GP) model
 
-#### Q-Learning (QL)
+#### Q-Learning (QL) (Model-free)
