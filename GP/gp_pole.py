@@ -384,7 +384,7 @@ model = train_model(data  = data,
 					nexec = 1)
 
 test_model( model = model,
-			tries = 5,
+			tries = 3,
 			SHOW  = SHOW,
 			fname = fname,
 			nexec = 1)

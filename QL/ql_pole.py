@@ -90,7 +90,7 @@ def simulate(nexec):
 
 			#sleep(0.25)
 		
-		if episode >= (neps - 10):
+		if episode >= (neps - 3):
 
 			output = open("QL_GAMES/Game_" + fname + "_" + str(nexec) + "_"  + str(neps - episode) + ".csv", 'w')
 		
