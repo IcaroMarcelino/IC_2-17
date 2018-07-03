@@ -40,14 +40,14 @@ Default parameters:
 - ER (explorer rate): 0.01
 - neps (number of episodes): 250
 - SHOW (show simulation): True
-- v (verbose): True
+- v (verbose): False
 - filename (string to be added to the output files names): Default_Try
 
 >> python3 ql_pole.py
 
 is equivalent to
 
->> python3 ql_pole.py -LR 0.1 -ER 0.01 -neps 250 -SHOW 1 -v 1 -filename Default_Try
+>> python3 ql_pole.py -LR 0.1 -ER 0.01 -neps 250 -SHOW 1 -v 0 -filename Default_Try
 
 ## Output files
 - Games: Random simulations with the trained models. Csv table (step, x, x', theta, theta')
