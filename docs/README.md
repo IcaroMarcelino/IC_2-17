@@ -11,13 +11,32 @@ Default parameters:
 - v (verbose): True
 - filename (string to be added to the output files names): Default_Try
 >> python3 dl_pole.py
+
 is equivalent to
+
 >> python3 dl_pole.py -LR 0.001 -epoch 10 -SHOW 1 -v 1 -filename Default_Try
 
 #### Genetic Programming (GP) model
+Default parameters:
+- ngen (number of generations): 50
+- npop (number of individuals): 25
+- mutpb (mutation rate): 0.15
+- cxpb (crossover rate): 0.85
+- maxdeep (maximum tree depth): 10
+- SHOW (show simulation): True
+- v (verbose): True
+- filename (string to be added to the output files names): Default_Try
 >> python3 gp_pole.py
 
 
 #### Q-Learning (QL) (Model-free)
+Default parameters:
+- LR (learning rate): 0.1
+- ER (explorer rate): 0.01
+- neps (number of episodes): 250
+- SHOW (show simulation): True
+- v (verbose): True
+- filename (string to be added to the output files names): Default_Try
+
 >> python3 ql_pole.py
 
