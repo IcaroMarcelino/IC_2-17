@@ -4,6 +4,9 @@
 Uses python 3
 
 #### Deep Learning (DL) model
+Default parameters:
+1.
+2.
 >> python3 dl_pole.py
 
 #### Genetic Programming (GP) model
