@@ -5,49 +5,18 @@ import math
 from time import sleep
 import time
 import csv
+import sys
+import os
 
 
-## Initialize the "Cart-Pole" environment
-env = gym.make('CartPole-v0')
-
-## Defining the environment related constants
-
-# Number of discrete states (bucket) per state dimension
-NUM_BUCKETS = (1, 1, 6, 3)  # (x, x', theta, theta')
-# Number of discrete actions
-NUM_ACTIONS = env.action_space.n # (left, right)
-# Bounds for each discrete state
-STATE_BOUNDS = list(zip(env.observation_space.low, env.observation_space.high))
-STATE_BOUNDS[1] = [-0.5, 0.5]
-STATE_BOUNDS[3] = [-math.radians(50), math.radians(50)]
-# Index of the action
-ACTION_INDEX = len(NUM_BUCKETS)
-
-## Creating a Q-Table for each state-action pair
-q_table = np.zeros(NUM_BUCKETS + (NUM_ACTIONS,))
-
-## Learning related constants
-MIN_EXPLORE_RATE = 0.0001
-MIN_LEARNING_RATE = 0.001
-
-## Defining the simulation related constants
-NUM_EPISODES = 1000
-MAX_T = 1000
-STREAK_TO_END = 50
-SOLVED_T = 499
-DEBUG_MODE = False
-filename = 'QL_'
-SHOW = False
-
-def save_scores(best_scores, times, path, filename, nexec):
-    output = open(path + filename + "_" + str(nexec) + ".csv", 'w')
+def save_scores(best_scores, times, path, fname, nexec):
+    output = open(path + fname + "_" + str(nexec) + ".csv", 'w')
     
     wr = csv.writer(output)
     for i in list(range(len(best_scores))):
         wr.writerow([i, best_scores[i], times[i]])
 
 def simulate(nexec):
-
     ## Instantiating the learning related parameters
     learning_rate = get_learning_rate(0)
     explore_rate = get_explore_rate(0)
@@ -57,7 +26,7 @@ def simulate(nexec):
 
     scores = []
     times = []
-    for episode in range(NUM_EPISODES):
+    for episode in range(neps):
         print("\nEpisode = %d" % episode)
 
         saving = []
@@ -71,7 +40,7 @@ def simulate(nexec):
         init = time.time()
 
         scr = 0
-        for t in range(MAX_T):
+        for t in range(steps_lim):
             if SHOW:
                 env.render()
 
@@ -82,7 +51,7 @@ def simulate(nexec):
             obv, reward, done, _ = env.step(action)
             scr += reward
 
-            if episode >= (NUM_EPISODES - 10):
+            if episode >= (neps - 10):
                 saving.append(obv)
 
             # Observe the result
@@ -96,7 +65,7 @@ def simulate(nexec):
             state_0 = state
 
             # Print data
-            if (DEBUG_MODE):
+            if (verb):
                 print("t = %d" % t)
                 print("Action: %d" % action)
                 print("State: %s" % str(state))
@@ -113,7 +82,7 @@ def simulate(nexec):
 
             if done:
                print("Episode %d finished after %f time steps" % (episode, t))
-               if (t >= SOLVED_T):
+               if (t >= max_steps):
                    num_streaks += 1
                else:
                    num_streaks = 0
@@ -121,9 +90,9 @@ def simulate(nexec):
 
             #sleep(0.25)
         
-        if episode >= (NUM_EPISODES - 10):
+        if episode >= (neps - 10):
 
-            output = open("QL_GAMES/Game_" + filename + "_" + str(nexec) + "_"  + str(NUM_EPISODES - episode) + ".csv", 'w')
+            output = open("QL_GAMES/Game_" + fname + "_" + str(nexec) + "_"  + str(neps - episode) + ".csv", 'w')
         
 
             wr = csv.writer(output)
@@ -137,14 +106,14 @@ def simulate(nexec):
 
 
         # It's considered done when it's solved over 120 times consecutively
-        if num_streaks > STREAK_TO_END:
+        if num_streaks > scr_rqmnt:
             break
 
         # Update parameters
         explore_rate = get_explore_rate(episode)
         learning_rate = get_learning_rate(episode)
 
-    save_scores(scores, times, "Scores/SCR_", filename, nexec)
+    save_scores(scores, times, "Scores/SCR_", fname, nexec)
 
 def select_action(state, explore_rate):
     # Select a random action
@@ -156,10 +125,10 @@ def select_action(state, explore_rate):
     return action
 
 def get_explore_rate(t):
-    return max(MIN_EXPLORE_RATE, min(1, 1.0 - math.log10((t+1)/25)))
+    return max(ER, min(1, 1.0 - math.log10((t+1)/25)))
 
 def get_learning_rate(t):
-    return max(MIN_LEARNING_RATE, min(0.5, 1.0 - math.log10((t+1)/25)))
+    return max(LR, min(0.5, 1.0 - math.log10((t+1)/25)))
 
 def state_to_bucket(state):
     bucket_indice = []
@@ -177,6 +146,59 @@ def state_to_bucket(state):
         bucket_indice.append(bucket_index)
     return tuple(bucket_indice)
 
-if __name__ == "__main__":
-    for nexec in range(0,50):
-        simulate(nexec = nexec)
+'''
+    Environment definition
+'''
+env = gym.make("CartPole-v0")
+env.reset()
+neps = 400
+steps_lim = 1000
+scr_rqmnt = 50
+max_steps = 500
+
+NUM_BUCKETS = (1, 1, 6, 3)      # (x, x', theta, theta')
+NUM_ACTIONS = env.action_space.n# (left, right)
+# Bounds for each discrete state
+STATE_BOUNDS = list(zip(env.observation_space.low, env.observation_space.high))
+STATE_BOUNDS[1] = [-0.5, 0.5]
+STATE_BOUNDS[3] = [-math.radians(50), math.radians(50)]
+# Index of the action
+ACTION_INDEX = len(NUM_BUCKETS)
+
+## Creating a Q-Table for each state-action pair
+q_table = np.zeros(NUM_BUCKETS + (NUM_ACTIONS,))
+
+
+'''
+    Default parameters
+'''
+ER = 0.01
+LR = 0.1
+verb = False
+fname = 'Default_Try'
+SHOW = True
+
+'''
+    User's parameters (If exists)
+'''
+for i in range(len(sys.argv)-1):  
+    if (sys.argv[i] == '-epoch'):
+        epoch = int(sys.argv[i+1])
+
+    elif(sys.argv[i] == '-LR'):
+        LR = float(sys.argv[i+1]) 
+
+    elif(sys.argv[i] == '-ER'):
+        ER = float(sys.argv[i+1]) 
+
+    elif(sys.argv[i] == '-SHOW'):
+        SHOW = int(sys.argv[i+1])    
+
+    elif(sys.argv[i] == '-v'):
+        verb = int(sys.argv[i+1])
+
+    elif(sys.argv[i] == '-filename'):
+        fname = sys.argv[i+1]                                           
+
+
+simulate(1)

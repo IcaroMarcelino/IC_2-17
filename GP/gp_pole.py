@@ -11,112 +11,78 @@ from deap import tools
 from deap import gp
 from deap.gp import PrimitiveSetTyped
 
-#import pygraphviz as pgv
-#from sympy import simplify, expand
-
 from statistics import median, mean
 from collections import Counter
 import csv
 import time
 
-# Display the pendulum?
-SHOW = False 
+import sys
+import os
 
-env = gym.make("CartPole-v0")
-env.reset()
-goal_steps = 200
-score_requirement = 50
-initial_games = 10000
+'''
+	Description: Generates de training data with random games.
 
-def initial_population():
-	# [OBS, MOVES]
-	training_data = []
-	# all scores:
+	Parameters:
+		ran_games: Number of random simulations
+		max_steps: Maximum or goal number of steps
+		scr_rqmnt: Minimum number of steps to save the game data
+'''
+def create_data(ran_games, max_steps, scr_rqmnt):
+	data = []
 	scores = []
-	# just the scores that met our threshold:
 	accepted_scores = []
-	# iterate through however many games we want:
-	for _ in range(initial_games):
+
+	for _ in range(ran_games):
 		score = 0
-		# moves specifically from this environment:
 		game_memory = []
-		# previous observation that we saw
 		prev_observation = []
-		# for each frame in 200
-		for _ in range(goal_steps):
-			# choose random action (0 or 1)
+		
+		for _ in range(max_steps):
 			action = random.randrange(0,2)
-			# do it!
 			observation, reward, done, info = env.step(action)
-			# print(observation)
-			# print(reward)
-			# print(done)
-			# print(info)
-			# print(">>>>")
-			# input()
-			
-			# notice that the observation is returned FROM the action
-			# so we'll store the previous observation here, pairing
-			# the prev observation to the action we'll take.
-			if len(prev_observation) > 0 :
+
+			if len(prev_observation) > 0:
 				game_memory.append([prev_observation, action])
+
 			prev_observation = observation
 			score+=reward
-			if done: break
+			
+			if done:
+				break
 
-		# IF our score is higher than our threshold, we'd like to save
-		# every move we made
-		# NOTE the reinforcement methodology here. 
-		# all we're doing is reinforcing the score, we're not trying 
-		# to influence the machine in any way as to HOW that score is 
-		# reached.
-		if score >= score_requirement:
+		if score >= scr_rqmnt:
 			accepted_scores.append(score)
-			for data in game_memory:
-				# convert to one-hot (this is the output layer for our neural network)
-				if data[1] == 1:
+			for saved in game_memory:
+				if saved[1] == 1:
 					output = [0,1]
-				elif data[1] == 0:
+				elif saved[1] == 0:
 					output = [1,0]
 					
-				# saving our training data
-				training_data.append([data[0], output])
+				data.append([saved[0], output])
 
-		# reset env to play again
 		env.reset()
-		# save overall scores
 		scores.append(score)
-	
-	# just in case you wanted to reference later
-	# training_data_save = np.array(training_data)
-	# np.save('saved.npy',training_data_save)
-	
-	# some stats here, to further illustrate the neural network magic!
-	print('Average accepted score:',mean(accepted_scores))
-	print('Median score for accepted scores:',median(accepted_scores))
-	print(Counter(accepted_scores))
-	
-	return training_data
+	return data
 
-def save_log(log, path, filename, nexec):
-	log_file = open(path + filename + "_" + str(nexec) + ".csv", 'w')
+def save_log(log, path, fname, nexec):
+	log_file = open(path + fname + "_" + str(nexec) + ".csv", 'w')
 	log_file.write(str(log))
 	log_file.close()
 
-def save_individual(individual, pset, path, filename, nexec):
+def save_individual(individual, pset, path, fname, nexec):
 	function = gp.compile(individual, pset)
-	exp_file = open(path + filename + "_" + str(nexec) + ".txt", 'w')
+	exp_file = open(path + fname + "_" + str(nexec) + ".txt", 'w')
 	exp_file.write(str(individual))
 	exp_file.close()
 
-def save_fitness(best_fitnesses, times, path, filename, nexec):
-	output = open(path + filename + "_" + str(nexec) + ".txt", 'w')
+def save_fitness(best_fitnesses, times, path, fname, nexec):
+	output = open(path + fname + "_" + str(nexec) + ".txt", 'w')
 	
 	wr = csv.writer(output)
 	for i in list(range(len(best_fitnesses))):
 		wr.writerow([i, best_fitnesses[i], times[i]])
 
-def train_model(training_data, npop, ngen, mutpb, cxpb, tam_max, nexec, verbose, filename):
+def train_model(data, npop, ngen, mutpb, cxpb, tam_max, max_steps, verb, fname, nexec):
 	def if_then_else(input, output1, output2):
 		return output1 if input else output2
 
@@ -195,37 +161,37 @@ def train_model(training_data, npop, ngen, mutpb, cxpb, tam_max, nexec, verbose,
 	toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 	toolbox.register("compile", gp.compile, pset=pset)
 
-	def f_fitness(individual, training_data):
+	def f_fitness(individual, data):
 		score = 0
 		f_approx = toolbox.compile(expr=individual)
 
 		# action = random.randrange(0,2)
 		# observation, reward, done, info = env.step(action)
-		for i in range(len(training_data)):
-			observation = list(training_data[i][0])
+		for i in range(len(data)):
+			observation = list(data[i][0])
 			# choose random action (0 or 1)
 			action = f_approx(*observation)
 			# do it!
-			# observation, reward, done, info = list(training_data[i][0])
+			# observation, reward, done, info = list(data[i][0])
 
-			if action == training_data[i][1][1]:
+			if action == data[i][1][1]:
 				score += 1
 
 		return score,
 
-	toolbox.register("evaluate", f_fitness, training_data = training_data)
+	toolbox.register("evaluate", f_fitness, data = data)
 	# toolbox.register("select", tools.selRoulette)
 	toolbox.register("select", tools.selTournament, tournsize=3)
 	toolbox.register("mate", gp.cxOnePoint)
 	# toolbox.register("mate", gp.cxOnePointLeafBiased, termpb = .05)
-	toolbox.register("expr_mut", gp.genFull, min_=3, max_=6)
-	toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
+	# toolbox.register("expr_mut", gp.genFull, min_=3, max_=6)
+	# toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
 
-	# toolbox.register("mutate", gp.mutShrink)
+	toolbox.register("mutate", gp.mutShrink)
 	# toolbox.register("mutate", gp.mutInsert, pset=pset)
 
-	toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value = 20))
-	toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value = 6))
+	toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value = tam_max))
+	toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value = tam_max))
 
 	start = time.time()
 	random.seed(318)
@@ -259,7 +225,7 @@ def train_model(training_data, npop, ngen, mutpb, cxpb, tam_max, nexec, verbose,
 		game_memory = []
 		prev_obs = []
 		scr = 0
-		for _ in range(goal_steps):
+		for _ in range(max_steps):
 			if SHOW:
 				env.render()
 
@@ -290,7 +256,7 @@ def train_model(training_data, npop, ngen, mutpb, cxpb, tam_max, nexec, verbose,
 		scores.append(scr)
 		times.append(time.time()-geninit)
 
-		if verbose:
+		if verb:
 			print(log.stream)
 
 
@@ -302,29 +268,20 @@ def train_model(training_data, npop, ngen, mutpb, cxpb, tam_max, nexec, verbose,
 	f_approx = toolbox.compile(expr=hof[0])
 	print("\n>>>>>\n" + str(gp.PrimitiveTree(hof[0])) + "\n>>>>>\n")
 
-	save_fitness(scores, times, "Log_Fitness/FIT_", filename, nexec)
-	save_individual(hof[0], pset, "Best_Expressions/EXPR_", filename, nexec)
-	save_log(log, "Log_Exec/LOG_", filename, nexec)
+	save_fitness(scores, times, "Log_Fitness/FIT_", fname, nexec)
+	save_individual(hof[0], pset, "Best_Expressions/EXPR_", fname, nexec)
+	save_log(log, "Log_Exec/LOG_", fname, nexec)
 
 	return f_approx
 
-NPOP = 500
-NGEN = 300
-MUTPB = .10
-CXPB = .85
-TAM_MAX = 20
-filename = "GP_20"
-verbose = False
 
-for i in range(0,5):
-	training_data = initial_population()
-	model = train_model(training_data, NPOP, NGEN, MUTPB, CXPB, TAM_MAX, i, verbose, filename)
-
+def test_model(model, tries, SHOW, fname, nexec):
 	scores = []
 	choices = []
 	saving = []
+
 	j = 0
-	for each_game in range(10):
+	for each_game in range(tries):
 		j+=1
 		score = 0
 		game_memory = []
@@ -350,13 +307,84 @@ for i in range(0,5):
 
 		scores.append(score)
 
-		output = open("GP_GAMES/Game_" + filename + "_" + str(i) + "_"  + str(j) + ".csv", 'w')
+		output = open("GP_GAMES/Game_" + fname + "_" + str(nexec) + "_"  + str(j) + ".csv", 'w')
 		
 		wr = csv.writer(output)
 		for k in list(range(len(saving))):
 			wr.writerow([k, saving[k][0], saving[k][1], saving[k][2], saving[k][3]])
 
+	return
 
-print('Average Score:',sum(scores)/len(scores))
-print('choice 1:{}  choice 0:{}'.format(choices.count(1)/len(choices),choices.count(0)/len(choices)))
-print(score_requirement)
+
+'''
+	Environment definition
+'''
+env = gym.make("CartPole-v0")
+env.reset()
+
+max_steps = 500
+scr_rqmnt = 50
+ran_games = 10000
+''''''''''''''''''''''''''''''
+
+'''
+	Default parameters
+'''
+NPOP  = 25
+NGEN  = 100
+MUTPB = 0.10
+CXPB  = 0.85
+MAXDP = 20
+fname = "Default_Try"
+verb  = True
+SHOW  = True
+''''''''''''''''''''''''''''''
+
+'''
+	User's parameters (If exists)
+'''
+for i in range(len(sys.argv)-1):  
+	if (sys.argv[i] == '-npop'):
+		NPOP = int(sys.argv[i+1])
+
+	elif(sys.argv[i] == '-ngen'):
+		NGEN = int(sys.argv[i+1]) 
+
+	elif(sys.argv[i] == '-mutpb'):
+		MUTPB = int(sys.argv[i+1]) 
+
+	elif(sys.argv[i] == '-cxpb'):
+		CXPB = int(sys.argv[i+1])   
+
+	elif(sys.argv[i] == '-maxdeep'):
+		MAXDP = int(sys.argv[i+1])                 
+
+	elif(sys.argv[i] == '-SHOW'):
+		SHOW = int(sys.argv[i+1])    
+
+	elif(sys.argv[i] == '-v'):
+		verb = int(sys.argv[i+1])  
+
+	elif(sys.argv[i] == '-filename'):
+        fname = sys.argv[i+1]                                          
+
+data = create_data( ran_games = ran_games,
+					max_steps = max_steps,
+					scr_rqmnt = scr_rqmnt)
+
+model = train_model(data  = data,
+					npop  = NPOP, 
+					ngen  = NGEN, 
+					mutpb = MUTPB, 
+					cxpb  = CXPB, 
+					tam_max = MAXDP, 
+					max_steps = max_steps, 
+					verb  = verb, 
+					fname = fname,
+					nexec = 1)
+
+test_model( model = model,
+			tries = 5,
+			SHOW  = SHOW,
+			fname = fname,
+			nexec = 1)
