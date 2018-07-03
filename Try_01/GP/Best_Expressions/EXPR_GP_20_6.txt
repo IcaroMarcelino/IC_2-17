@@ -1,1 +1,0 @@
-move_to_right(less(add(p_div(10.0, sub(sub(-10.0, theta_), theta_)), neg(neg(theta))), 1.0))

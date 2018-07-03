@@ -1,1 +1,0 @@
-move_to_right(less(1.0, sub(neg(add(neg(add(10.0, -1.0)), neg(neg(theta_)))), neg(add(neg(p_div(x_, neg(-10.0))), mul(neg(add(neg(p_div(x_, neg(-10.0))), mul(add(theta, 10.0), sub(-1.0, mul(theta, p_div(sub(theta, mul(theta, p_div(theta_, -10.0))), -10.0)))))), sub(-1.0, mul(theta, p_div(sub(-1.0, mul(theta, p_div(theta, -10.0))), -10.0)))))))))

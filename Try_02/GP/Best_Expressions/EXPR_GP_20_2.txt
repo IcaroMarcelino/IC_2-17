@@ -1,1 +1,0 @@
-greater(-10.0, add(theta, add(theta_, add(theta, add(theta, -10.0)))))

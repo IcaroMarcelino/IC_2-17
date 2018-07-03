@@ -1,1 +1,0 @@
-move_to_left(less(add(10.0, 1.0), add(sub(sub(add(10.0, mul(add(add(theta_, -10.0), 1.0), theta)), -1.0), theta_), neg(theta_))))

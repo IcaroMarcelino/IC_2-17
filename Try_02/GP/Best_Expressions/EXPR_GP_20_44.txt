@@ -1,1 +1,0 @@
-greater(sub(mul(x, mul(sub(mul(theta, 2.0), mul(-2.0, mul(x, mul(sub(sub(2.0, -1.0), -2.0), theta)))), theta)), 1.0), sub(theta_, add(sub(mul(mul(-2.0, theta), 2.0), -1.0), sub(mul(theta, sub(theta, x)), sub(theta, x)))))

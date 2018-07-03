@@ -1,1 +1,0 @@
-move_to_left(less(mul(sub(p_div(theta, add(-2.0, theta_)), neg(-1.0)), mul(neg(10.0), sub(-2.0, -10.0))), sub(neg(theta_), mul(sub(2.0, 10.0), add(-10.0, theta_)))))

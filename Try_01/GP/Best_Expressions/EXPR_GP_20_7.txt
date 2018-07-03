@@ -1,1 +1,0 @@
-move_to_left(greater(p_div(theta, theta), add(1.0, add(theta, add(p_div(theta, add(p_div(theta, theta), add(p_div(theta_, 2.0), add(p_div(add(p_div(theta, add(p_div(theta, theta), add(p_div(theta, 1.0), p_div(theta_, 2.0)))), p_div(p_div(theta_, 2.0), 2.0)), theta), p_div(theta, add(p_div(theta, theta), p_div(p_div(theta_, 2.0), 2.0))))))), p_div(p_div(theta_, 2.0), 2.0))))))

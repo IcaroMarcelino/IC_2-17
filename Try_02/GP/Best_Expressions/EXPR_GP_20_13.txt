@@ -1,1 +1,0 @@
-move_to_right(less(mul(mul(add(-10.0, 1.0), add(theta, sub(-1.0, p_div(theta_, -2.0)))), sub(-1.0, x)), neg(sub(sub(mul(mul(add(-10.0, -1.0), add(theta, theta)), sub(-1.0, x)), 1.0), sub(-10.0, theta_)))))

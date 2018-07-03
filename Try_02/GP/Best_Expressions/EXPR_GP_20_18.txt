@@ -1,1 +1,0 @@
-greater(sub(add(sub(sub(add(sub(sub(x_, add(x_, neg(x))), theta_), neg(x)), add(x_, neg(x))), theta_), neg(add(x_, neg(x)))), sub(theta_, -10.0)), -10.0)

@@ -1,1 +1,0 @@
-less(2.0, p_div(sub(p_div(theta, mul(p_div(add(add(theta_, -10.0), add(neg(neg(-2.0)), theta)), neg(sub(neg(neg(neg(x))), -10.0))), mul(2.0, 2.0))), neg(neg(-2.0))), p_div(add(add(theta_, -10.0), add(mul(theta, 2.0), theta)), neg(sub(neg(neg(neg(x))), -10.0)))))

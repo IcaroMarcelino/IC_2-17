@@ -1,1 +1,0 @@
-greater(sub(-1.0, p_div(mul(-1.0, 10.0), -1.0)), sub(p_div(mul(p_div(add(neg(-2.0), mul(-1.0, -2.0)), mul(-1.0, 10.0)), theta_), 2.0), neg(sub(neg(-2.0), add(2.0, add(sub(theta, 1.0), mul(-1.0, 10.0)))))))

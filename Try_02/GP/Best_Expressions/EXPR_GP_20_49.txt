@@ -1,1 +1,0 @@
-move_to_right(less(add(mul(2.0, theta_), neg(2.0)), neg(add(add(-2.0, x), sub(x, x_)))))

@@ -1,1 +1,0 @@
-less(sub(sub(sub(sub(1.0, theta), theta), theta), theta), add(theta_, add(neg(-1.0), theta)))
