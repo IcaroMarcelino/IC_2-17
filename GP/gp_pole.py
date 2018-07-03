@@ -331,10 +331,10 @@ ran_games = 10000
 	Default parameters
 '''
 NPOP  = 25
-NGEN  = 100
-MUTPB = 0.10
+NGEN  = 50
+MUTPB = 0.15
 CXPB  = 0.85
-MAXDP = 20
+MAXDP = 10
 fname = "Default_Try"
 verb  = True
 SHOW  = True
@@ -366,7 +366,7 @@ for i in range(len(sys.argv)-1):
 		verb = int(sys.argv[i+1])  
 
 	elif(sys.argv[i] == '-filename'):
-        fname = sys.argv[i+1]                                          
+		fname = sys.argv[i+1]                                          
 
 data = create_data( ran_games = ran_games,
 					max_steps = max_steps,
