@@ -10,6 +10,7 @@ Default parameters:
 - SHOW (show simulation): True
 - v (verbose): True
 - filename (string to be added to the output files names): Default_Try
+
 >> python3 dl_pole.py
 
 is equivalent to
@@ -26,8 +27,12 @@ Default parameters:
 - SHOW (show simulation): True
 - v (verbose): True
 - filename (string to be added to the output files names): Default_Try
+
 >> python3 gp_pole.py
 
+is equivalent to
+
+>> python3 gp_pole.py -ngen 50 -npop 25 -mutpb .15 - cxpb .85 - maxdeep 10 -SHOW 1 -v 1 -filename Default_Try
 
 #### Q-Learning (QL) (Model-free)
 Default parameters:
@@ -39,4 +44,8 @@ Default parameters:
 - filename (string to be added to the output files names): Default_Try
 
 >> python3 ql_pole.py
+
+is equivalent to
+
+>> python3 ql_pole.py -LR 0.1 -ER 0.01 -neps 250 -SHOW 1 -v 1 -filename Default_Try
 
